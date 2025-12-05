@@ -4,10 +4,11 @@ declare(strict_types=1);
 
 date_default_timezone_set('Europe/Rome');
 
-define('DB_HOST', '127.0.0.1');
-define('DB_NAME', 'monitor_di_log');
-define('DB_USER', 'db_user');
-define('DB_PASS', 'db_pass');
+define('DB_HOST', getenv('DB_HOST'));
+define('DB_NAME', getenv('DB_NAME'));
+define('DB_USER', getenv('DB_USER'));
+define('DB_PASS', getenv('DB_PASS'));
+define('KIOSK_IP', getenv('KIOSK_IP'));
 
 define('KIOSK_IP', '192.168.112.17'); // inserisci qui l'IP della postazione dedicata
 
