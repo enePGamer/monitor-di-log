@@ -1,20 +1,31 @@
-# --- BASE IMAGE con PHP + Apache ---
+# Base image PHP + Apache
 FROM php:8.2-apache
 
-# Abilita estensioni PHP necessarie (PDO MySQL)
+# Install MySQL server + utilities
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install -y \
+        default-mysql-server \
+        supervisor && \
+    rm -rf /var/lib/apt/lists/*
+
+# Enable PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
-# Abilita mod_rewrite se necessario
+# Enable Apache mod_rewrite
 RUN a2enmod rewrite
 
-# Copia l’applicazione nel DocumentRoot Apache
+# Copy application code
 COPY . /var/www/html/
-
-# Permessi
 RUN chown -R www-data:www-data /var/www/html
 
-# Espone la porta usata da Apache
+# Copy supervisord configuration
+COPY supervisord.conf /etc/supervisor/supervisord.conf
+
+# Expose only Apache (Render expects one port)
 EXPOSE 80
 
-# Comando di avvio (già quello di apache)
-CMD ["apache2-foreground"]
+# Start supervisor (which starts MySQL + Apache)
+CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/supervisord.conf"]
+
+# Add MySQL init script
+COPY init.sql /docker-entrypoint-initdb.d/
