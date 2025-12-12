@@ -4,11 +4,13 @@
 declare(strict_types=1);
 
 // Con MySQL nel container Docker
-define('KIOSK_IP', '192.168.112.17'); // IP della tua postazione kiosk
-define('DB_HOST', '127.0.0.1');  // o "localhost"
-define('DB_NAME', 'mydb');       // nome definito in init.sql
+define('DB_HOST', '127.0.0.1');
+define('DB_NAME', 'mydb');
 define('DB_USER', 'root');
-define('DB_PASS', 'abcxyz');     // password definita in init.sql
+define('DB_PASS', 'abcxyz');
+
+// IP della postazione kiosk (usa 0.0.0.0 per accettare tutte le connessioni in test)
+define('KIOSK_IP', getenv('KIOSK_IP') ?: '0.0.0.0');
 
 // Opzioni PDO
 $options = [
