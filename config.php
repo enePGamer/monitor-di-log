@@ -9,14 +9,13 @@ define('DB_NAME', 'mydb');
 define('DB_USER', 'root');
 define('DB_PASS', 'abcxyz');
 
-// IP della postazione kiosk (usa 0.0.0.0 per accettare tutte le connessioni in test)
-define('KIOSK_IP', getenv('KIOSK_IP') ?: '0.0.0.0');
+// Token segreto per identificare il kiosk tramite cookie
+// IMPORTANTE: Cambia questo valore con uno casuale e sicuro!
+// Oppure usa una variabile d'ambiente KIOSK_TOKEN
+define('KIOSK_TOKEN', getenv('KIOSK_TOKEN') ?: 'CAMBIA_QUESTO_TOKEN_123456');
 
-// Opzioni PDO
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
+// Password per la pagina di setup (opzionale ma consigliato)
+define('SETUP_PASSWORD', getenv('SETUP_PASSWORD') ?: 'setup123');
 
 function getPDO(): PDO {
     static $pdo = null;
