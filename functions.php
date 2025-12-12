@@ -3,11 +3,6 @@
 require_once __DIR__ . '/config.php';
 session_start();
 
-// Nome del cookie per identificare il kiosk
-define('KIOSK_COOKIE_NAME', 'kiosk_token');
-// Token segreto (CAMBIALO con un valore casuale e sicuro!)
-define('KIOSK_TOKEN', getenv('KIOSK_TOKEN') ?: 'CAMBIA_QUESTO_TOKEN_CON_VALORE_SICURO_123456');
-
 /**
  * Rileva se la richiesta proviene dalla postazione dedicata (kiosk)
  * Usa un cookie con token segreto invece dell'IP
@@ -21,9 +16,9 @@ function isKiosk(): bool {
  * Imposta il cookie per identificare la postazione come kiosk
  * Questa funzione va chiamata manualmente da una pagina protetta/setup
  */
-function setKioskCookie(): void {
+function setKioskCookie(): bool {
     // Cookie che dura 1 anno, httponly per sicurezza
-    setcookie(
+    $result = setcookie(
         KIOSK_COOKIE_NAME, 
         KIOSK_TOKEN, 
         time() + (365 * 24 * 60 * 60), // 1 anno
@@ -32,6 +27,13 @@ function setKioskCookie(): void {
         false, // se usi HTTPS metti true
         true   // httponly
     );
+    
+    // Imposta anche in $_COOKIE per uso immediato
+    if ($result) {
+        $_COOKIE[KIOSK_COOKIE_NAME] = KIOSK_TOKEN;
+    }
+    
+    return $result;
 }
 
 /**
@@ -39,6 +41,7 @@ function setKioskCookie(): void {
  */
 function removeKioskCookie(): void {
     setcookie(KIOSK_COOKIE_NAME, '', time() - 3600, '/');
+    unset($_COOKIE[KIOSK_COOKIE_NAME]);
 }
 
 function insertLog(int $uid, int $op_type, int $is_kiosk): void {

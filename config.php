@@ -12,10 +12,19 @@ define('DB_PASS', 'abcxyz');
 // Token segreto per identificare il kiosk tramite cookie
 // IMPORTANTE: Cambia questo valore con uno casuale e sicuro!
 // Oppure usa una variabile d'ambiente KIOSK_TOKEN
-define('KIOSK_TOKEN', getenv('KIOSK_TOKEN') ?: 'CAMBIA_QUESTO_TOKEN_123456');
+if (!defined('KIOSK_TOKEN')) {
+    define('KIOSK_TOKEN', getenv('KIOSK_TOKEN') ?: 'CAMBIA_QUESTO_TOKEN_123456');
+}
 
 // Password per la pagina di setup (opzionale ma consigliato)
-define('SETUP_PASSWORD', getenv('SETUP_PASSWORD') ?: 'setup123');
+if (!defined('SETUP_PASSWORD')) {
+    define('SETUP_PASSWORD', getenv('SETUP_PASSWORD') ?: 'setup123');
+}
+
+// Nome del cookie per identificare il kiosk
+if (!defined('KIOSK_COOKIE_NAME')) {
+    define('KIOSK_COOKIE_NAME', 'kiosk_token');
+}
 
 function getPDO(): PDO {
     static $pdo = null;
