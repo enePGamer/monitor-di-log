@@ -4,6 +4,7 @@
 declare(strict_types=1);
 
 // Con MySQL nel container Docker
+define('KIOSK_IP', '192.168.112.17'); // IP della tua postazione kiosk
 define('DB_HOST', '127.0.0.1');  // o "localhost"
 define('DB_NAME', 'mydb');       // nome definito in init.sql
 define('DB_USER', 'root');
