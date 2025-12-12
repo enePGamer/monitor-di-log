@@ -28,9 +28,10 @@ COPY supervisord.conf /etc/supervisor/supervisord.conf
 RUN sed -i 's/Listen 80/Listen 10000/' /etc/apache2/ports.conf && \
     sed -i 's/:80/:10000/' /etc/apache2/sites-available/000-default.conf
 
-# Prepare MySQL directories
+# Prepare MySQL directories and initialize MariaDB
 RUN mkdir -p /var/run/mysqld /var/lib/mysql && \
-    chown -R mysql:mysql /var/run/mysqld /var/lib/mysql
+    chown -R mysql:mysql /var/run/mysqld /var/lib/mysql && \
+    mariadb-install-db --user=mysql --datadir=/var/lib/mysql
 
 # Expose port for Render
 EXPOSE 10000
