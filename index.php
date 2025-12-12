@@ -14,22 +14,45 @@ $isKiosk = isKiosk();
 <html lang="it">
 <head>
     <meta charset="utf-8">
-    <title>Monitor di log - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Monitor di Log - Home</title>
+    <link rel="stylesheet" href="assets/style.css">
 </head>
 <body>
-<h2>Benvenuto</h2>
+    <div class="container">
+        <div class="header">
+            <h1>🖥️ Monitor di Log</h1>
+            <p>Sistema di gestione accessi e monitoraggio</p>
+            <?php if ($isKiosk): ?>
+                <span class="badge kiosk">📍 Postazione Kiosk</span>
+            <?php else: ?>
+                <span class="badge normal">💻 Postazione Standard</span>
+            <?php endif; ?>
+        </div>
 
-<p>Questa applicazione permette di registrarsi (solo dalla postazione dedicata), effettuare login e monitorare gli accessi.</p>
+        <p style="text-align: center; color: #6b7280; margin-bottom: 24px;">
+            Benvenuto! Effettua il login o registrati per accedere al sistema.
+        </p>
 
-<ul>
-    <li><a href="login.php">Login</a></li>
+        <ul class="menu">
+            <li>
+                <a href="login.php">
+                    🔐 Login
+                </a>
+            </li>
 
-    <?php if ($isKiosk): ?>
-        <li><a href="register.php">Registrati (solo postazione dedicata)</a></li>
-    <?php else: ?>
-        <li><em>Registrazione disponibile solo dalla postazione dedicata</em></li>
-    <?php endif; ?>
-</ul>
-
+            <?php if ($isKiosk): ?>
+                <li>
+                    <a href="register.php">
+                        ✏️ Registrati
+                    </a>
+                </li>
+            <?php else: ?>
+                <li>
+                    <em>📍 La registrazione è disponibile solo dalla postazione kiosk dedicata</em>
+                </li>
+            <?php endif; ?>
+        </ul>
+    </div>
 </body>
 </html>
