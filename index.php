@@ -54,9 +54,6 @@ $isKiosk = isKiosk();
             <?php endif; ?>
         </ul>
 
-        <div class="links">
-            <a href="security_info.php">🔒 Informazioni sulla Sicurezza</a>
-        </div>
     </div>
 </body>
 </html>
