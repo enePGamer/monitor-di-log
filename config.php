@@ -13,7 +13,7 @@ define('DB_PASS', 'abcxyz');
 // IMPORTANTE: Cambia questo valore con uno casuale e sicuro!
 // Oppure usa una variabile d'ambiente KIOSK_TOKEN
 if (!defined('KIOSK_TOKEN')) {
-    define('KIOSK_TOKEN', getenv('KIOSK_TOKEN') ?: 'CAMBIA_QUESTO_TOKEN_123456');
+    define('KIOSK_TOKEN', getenv('KIOSK_TOKEN') ?: 'aaaaaa');
 }
 
 // Password per la pagina di setup (opzionale ma consigliato)
