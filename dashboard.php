@@ -242,7 +242,7 @@ $logs = $stmt->fetchAll();
             Kiosk.init({ 
                 uid: <?= json_encode($uid) ?>, 
                 heartbeatInterval: 15000, 
-                logoutUrl: 'logout.php', 
+                logoutUrl: 'index.php', 
                 heartbeatUrl: 'heartbeat.php' 
             });
         </script>
